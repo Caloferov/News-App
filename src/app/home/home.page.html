@@ -15,11 +15,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-list>
+    <div class="listWrapper">
+      <div *ngFor="let article of fetchNewsService.articles" class="regularArticle">
+        <div class="textPart">
+          <h5>{{article.title}}</h5>
+          <p>{{article.pubDate}}</p>
+        </div>
+        <img [src]="article.imageURL" />
+      </div>
+    </div>
+  </ion-list>
 
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
-  <div id="container">
-    <strong>Ready to create a very cool app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer"
-        href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
 </ion-content>

@@ -25,3 +25,54 @@
 #container a {
   text-decoration: none;
 }
+
+// Articles
+
+.listWrapper {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  background: var(--ion-background-color);
+}
+
+.regularArticle {
+  padding: 25px 20px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 500px;
+  min-height: 115px;
+
+  img {
+    height: 75%;
+    width: 30%;
+    object-fit: cover;
+    border-radius: 10px;
+    max-height: 135px;
+    max-width: 225px;
+    min-width: 110px;
+    min-height: 87px;
+  }
+}
+
+.textPart {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  h5 {
+    margin: 0 20px 0 0;
+    /* Max lines then ellipsis */
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  p {
+    margin: 15px 0 0 0;
+    font-size: 12px;
+  }
+}
