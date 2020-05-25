@@ -20,11 +20,11 @@
   <ion-list>
     <div class="listWrapper">
       <div *ngFor="let article of articles" class="regularArticle">
-        <div class="textPart">
+        <div class="textPart" (click)="openArticle(article.link)">
           <h5>{{article.title}}</h5>
           <p>{{article.pubDate}}</p>
         </div>
-        <img [src]="article.imageURL" />
+        <img [src]="article.imageURL" (click)="openArticle(article.link)" />
       </div>
     </div>
   </ion-list>

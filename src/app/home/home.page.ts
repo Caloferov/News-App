@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonInfiniteScroll, AnimationController } from '@ionic/angular';
 import { FetchRSSNewsService } from '../fetching-services/rss/fetch-RSS-news.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ export class HomePage {
   showPopover: boolean = false;
 
   constructor(private fetchRSSNewsService: FetchRSSNewsService,
-     private animationCtrl: AnimationController) { }
+    private animationCtrl: AnimationController,
+    private iab: InAppBrowser) { }
 
   ngOnInit() {
     this.fetchRSSNewsService.fetchRSS(this.fetchRSSNewsService.dirRssUrl).subscribe(resp => {
@@ -57,6 +59,10 @@ export class HomePage {
 
       this.articles.push(article);
     }
+  }
+
+  openArticle(url) {
+    const browser = this.iab.create(url);
   }
 
 }
