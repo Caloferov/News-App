@@ -6,10 +6,12 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { PopoverMenuComponent } from '../popover-menu/popover-menu.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   imports: [
+    SharedModule,
     CommonModule,
     FormsModule,
     IonicModule,

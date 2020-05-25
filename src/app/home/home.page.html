@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header #header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="clickedSearch()">
@@ -16,7 +16,7 @@
   <app-popover-menu #popover *ngIf="showPopover"></app-popover-menu>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" scrollEvents="true" appHideHeader [header]="header">
   <ion-list>
     <div class="listWrapper">
       <div *ngFor="let article of articles" class="regularArticle">
