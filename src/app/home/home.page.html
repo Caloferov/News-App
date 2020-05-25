@@ -5,19 +5,21 @@
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">novo</ion-title>
+    <h1 class="appTitle">novo</h1>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="showPopover = !showPopover">
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+
+  <app-popover-menu #popover *ngIf="showPopover"></app-popover-menu>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-list>
     <div class="listWrapper">
-      <div *ngFor="let article of fetchNewsService.articles" class="regularArticle">
+      <div *ngFor="let article of articles" class="regularArticle">
         <div class="textPart">
           <h5>{{article.title}}</h5>
           <p>{{article.pubDate}}</p>
@@ -27,7 +29,7 @@
     </div>
   </ion-list>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="infiniteLoadData($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>

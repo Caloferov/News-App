@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { FetchRSSNewsService } from './fetch-RSS-news.service';
 
-import { FetchNewsService } from './fetch-news.service';
 
 describe('FetchNewsService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FetchNewsService = TestBed.get(FetchNewsService);
+    const service: FetchRSSNewsService = TestBed.get(FetchRSSNewsService);
     expect(service).toBeTruthy();
   });
 });
