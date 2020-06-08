@@ -93,6 +93,10 @@
 .searchbar {
   padding: 0;
   width: 75%;
+  --box-shadow: none;
+  --placeholder-color: var(--ion-text-color);
+  --background: var(--searchbar-background);
+  --border-radius: 25px;
 }
 
 

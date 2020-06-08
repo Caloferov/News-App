@@ -6,6 +6,7 @@ body {
   /* By ionic documentation: */
   --ion-background-color: #ffffff;
   /* Custom: */
+  --searchbar-background: #eaeaea;
 }
 
 /* Dark theme colors: */
@@ -19,6 +20,7 @@ body {
   .md body {
     --ion-background-color: #000000;
     --ion-text-color: #ffffff;
+    --searchbar-background: #21212194
   }
 
   /* iOS Dark Theme  */
