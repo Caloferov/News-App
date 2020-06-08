@@ -1,11 +1,20 @@
 <ion-header #header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="clickedSearch()">
+      <ion-button (click)="showSearch()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <h1 class="appTitle">novo</h1>
+    <div class="middleHeader" [ngClass]="{'showSearchbar': showSearchbar}">
+      <div class="appTitleWrapper centerFlex w100 h100 trans03">
+        <h1 class="appTitle absolute">novo</h1>
+      </div>
+      <div class="searchbarWrapper centerFlex w100 h100 trans03">
+        <ion-searchbar class="searchbar absolute" #searchbar animated searchIcon="none"
+         mode="ios" placeholder="Търси новини">
+        </ion-searchbar>
+      </div>
+    </div>
     <ion-buttons slot="end">
       <ion-button (click)="showPopover = !showPopover">
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
@@ -16,7 +25,7 @@
   <app-popover-menu #popover *ngIf="showPopover"></app-popover-menu>
 </ion-header>
 
-<ion-content [fullscreen]="true" scrollEvents="true" appHideHeader [header]="header">
+<ion-content [fullscreen]="true" (scroll)="onScroll($event)">
   <ion-list>
     <div class="listWrapper">
       <div *ngFor="let article of articles" class="regularArticle">

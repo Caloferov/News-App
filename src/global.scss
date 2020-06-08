@@ -44,3 +44,21 @@ h1, p, span {
 .svgFill {
     fill: var(--ion-text-color);
 }
+
+.absolute {
+    position: absolute;
+}
+
+.centerFlex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.h100 {
+    height: 100%;
+}

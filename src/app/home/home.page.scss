@@ -77,3 +77,22 @@
     font-size: 12px;
   }
 }
+
+.middleHeader .searchbarWrapper {
+  opacity: 0;
+}
+
+.showSearchbar.middleHeader .searchbarWrapper {
+  opacity: 1;
+}
+
+.showSearchbar.middleHeader .appTitleWrapper {
+  opacity: 0;
+}
+
+.searchbar {
+  padding: 0;
+  width: 75%;
+}
+
+

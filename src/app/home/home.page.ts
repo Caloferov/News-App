@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonInfiniteScroll, AnimationController } from '@ionic/angular';
+import { IonInfiniteScroll, AnimationController, IonSearchbar } from '@ionic/angular';
 import { FetchRSSNewsService } from '../fetching-services/rss/fetch-RSS-news.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
@@ -9,17 +9,18 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  @ViewChild(IonInfiniteScroll, {
-    read: true,
-    static: true
-  }) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonInfiniteScroll, { read: true, static: true }) infiniteScroll: IonInfiniteScroll;
+
+  @ViewChild('searchbar', { static: false }) searchbar: IonSearchbar;
 
   articles = [];
   showPopover: boolean = false;
+  showSearchbar: boolean = false;
 
-  constructor(private fetchRSSNewsService: FetchRSSNewsService,
-    private animationCtrl: AnimationController,
-    private iab: InAppBrowser) { }
+  constructor(
+    private fetchRSSNewsService: FetchRSSNewsService,
+    private iab: InAppBrowser
+  ) { }
 
   ngOnInit() {
     this.fetchRSSNewsService.fetchRSS(this.fetchRSSNewsService.dirRssUrl).subscribe(resp => {
@@ -63,6 +64,17 @@ export class HomePage {
 
   openArticle(url) {
     const browser = this.iab.create(url);
+  }
+
+  showSearch() {
+    this.showSearchbar = !this.showSearchbar;
+    if (this.showSearchbar) {
+      this.searchbar.setFocus();
+    }
+  }
+
+  onScroll(event) {
+    console.log(event)
   }
 
 }
