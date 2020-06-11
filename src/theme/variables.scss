@@ -7,6 +7,7 @@ body {
   --ion-background-color: #ffffff;
   /* Custom: */
   --searchbar-background: #eaeaea;
+  --boxShadow: #969696;
 }
 
 /* Dark theme colors: */
@@ -20,7 +21,8 @@ body {
   .md body {
     --ion-background-color: #000000;
     --ion-text-color: #ffffff;
-    --searchbar-background: #21212194
+    --searchbar-background: #21212194;
+    --boxShadow: #000000;
   }
 
   /* iOS Dark Theme  */

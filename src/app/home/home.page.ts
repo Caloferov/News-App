@@ -37,7 +37,7 @@ export class HomePage {
           this.showSearchbar = false;
           this.showPopover = false;
         }
-        if (clickedOn === 'middleHeader') { 
+        if (clickedOn === 'middleHeader') {
           this.showPopover = false;
         }
 
@@ -80,7 +80,11 @@ export class HomePage {
   }
 
   openArticle(url) {
-    const browser = this.iab.create(url);
+    if (!this.showPopover) {
+      const browser = this.iab.create(url);
+    } else {
+      this.showPopover = false;
+    }
   }
 
   showSearch() {
