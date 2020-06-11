@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonInfiniteScroll, AnimationController, IonSearchbar } from '@ionic/angular';
+import { IonInfiniteScroll, IonSearchbar } from '@ionic/angular';
 import { FetchRSSNewsService } from '../fetching-services/rss/fetch-RSS-news.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { ClickedOutsideService } from '../clicked-outside/clicked-outside.service';
 
 @Component({
   selector: 'app-home',
@@ -14,17 +15,33 @@ export class HomePage {
   @ViewChild('searchbar', { static: false }) searchbar: IonSearchbar;
 
   articles = [];
+  backupArticles = [];
   showPopover: boolean = false;
   showSearchbar: boolean = false;
 
   constructor(
     private fetchRSSNewsService: FetchRSSNewsService,
-    private iab: InAppBrowser
+    private iab: InAppBrowser,
+    public clickedOutsideService: ClickedOutsideService
   ) { }
 
   ngOnInit() {
     this.fetchRSSNewsService.fetchRSS(this.fetchRSSNewsService.dirRssUrl).subscribe(resp => {
       this.extractDirRSS(resp);
+    }
+    )
+
+    this.clickedOutsideService.itsClickedOnSub.subscribe({
+      next: (clickedOn) => {
+        if (clickedOn === 'content') {
+          this.showSearchbar = false;
+          this.showPopover = false;
+        }
+        if (clickedOn === 'middleHeader') { 
+          this.showPopover = false;
+        }
+
+      }
     }
     )
   }
@@ -70,11 +87,23 @@ export class HomePage {
     this.showSearchbar = !this.showSearchbar;
     if (this.showSearchbar) {
       this.searchbar.setFocus();
+      this.backupArticles = this.articles
     }
+    this.showPopover = false;
+  }
+
+  showPopoverMenu() {
+    this.showPopover = !this.showPopover
   }
 
   onScroll(event) {
     console.log(event)
+  }
+
+  onSearchValueChange(event) {
+    let searchValue = event.detail.value;
+    this.articles = this.backupArticles.filter(article => article.title.toLowerCase().includes(searchValue.toLowerCase()));
+    console.log(this.articles)
   }
 
 }
