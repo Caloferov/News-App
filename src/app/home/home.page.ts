@@ -3,6 +3,7 @@ import { IonInfiniteScroll, IonSearchbar } from '@ionic/angular';
 import { FetchRSSNewsService } from '../fetching-services/rss/fetch-RSS-news.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ClickedOutsideService } from '../clicked-outside/clicked-outside.service';
+import { ThemeService } from '../theme-service/theme.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomePage {
   constructor(
     private fetchRSSNewsService: FetchRSSNewsService,
     private iab: InAppBrowser,
-    public clickedOutsideService: ClickedOutsideService
+    public clickedOutsideService: ClickedOutsideService,
+    public themeService: ThemeService
   ) { }
 
   ngOnInit() {

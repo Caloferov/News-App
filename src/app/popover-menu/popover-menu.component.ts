@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemeService } from '../theme-service/theme.service';
 
 @Component({
   selector: 'app-popover-menu',
@@ -6,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./popover-menu.component.scss'],
 })
 export class PopoverMenuComponent implements OnInit {
+  toggleDarkModel: boolean;
 
-  constructor() { }
+  constructor(public themeService: ThemeService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
 }

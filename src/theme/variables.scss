@@ -12,24 +12,29 @@ body {
 
 /* Dark theme colors: */
 
-@media (prefers-color-scheme: dark) {
-  /* Web color?! IDK */
-  body {
-  }
+// THIS QUERY is for auto detect preferred theme.
+// @media (prefers-color-scheme: dark) {
+//   /* Web color?! IDK */
+//   body {
+//   }
 
-  /* Material Design Dark Theme */
-  .md body {
-    --ion-background-color: #000000;
-    --ion-text-color: #ffffff;
-    --searchbar-background: #21212194;
-    --boxShadow: #000000;
-  }
+//   /* Material Design Dark Theme */
+//   .md body {
+//     --ion-background-color: #000000;
+//     --ion-text-color: #ffffff;
+//     --searchbar-background: #21212194;
+//     --boxShadow: #000000;
+//   }
 
-  /* iOS Dark Theme  */
-  .ios body {
-  }
-}
+//   /* iOS Dark Theme  */
+//   .ios body {
+//   }
+// }
 
 /* Browsers fallback  */
 body.dark {
+  --ion-background-color: #000000;
+  --ion-text-color: #ffffff;
+  --searchbar-background: #21212194;
+  --boxShadow: #000000;
 }
