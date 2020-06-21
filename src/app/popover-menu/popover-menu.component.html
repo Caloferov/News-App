@@ -4,6 +4,6 @@
     <ion-label>Dark mode</ion-label>
     <ion-toggle (ionChange)="themeService.toggleTheme($event.detail.checked)" [(ngModel)]="themeService.toggleIsChecked"></ion-toggle>
   </ion-item>
-  <ion-item lines="none" button [routerLink]="['/about']">За нас</ion-item>
+  <ion-item lines="none" button (click)="navigationService.navigateToAbout()">За нас</ion-item>
   <!-- <ion-item lines="none" detail="false" button onClick="dismissPopover()">Close</ion-item> -->
 </ion-list>

@@ -4,6 +4,7 @@ import { FetchRSSNewsService } from '../fetching-services/rss/fetch-RSS-news.ser
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ClickedOutsideService } from '../clicked-outside/clicked-outside.service';
 import { ThemeService } from '../theme-service/theme.service';
+import { NavigationService } from '../navigation-service/navigation.service';
 
 @Component({
   selector: 'app-home',
@@ -12,15 +13,14 @@ import { ThemeService } from '../theme-service/theme.service';
 })
 export class HomePage {
   @ViewChild(IonInfiniteScroll, { read: true, static: true }) infiniteScroll: IonInfiniteScroll;
-
   @ViewChild('searchbar', { static: false }) searchbar: IonSearchbar;
 
   articles;
   backupArticles = [];
-  showPopover: boolean = false;
-  showSearchbar: boolean = false;
+  searchValue;
 
   constructor(
+    private navigationService: NavigationService,
     private fetchRSSNewsService: FetchRSSNewsService,
     private iab: InAppBrowser,
     public clickedOutsideService: ClickedOutsideService,
@@ -31,16 +31,24 @@ export class HomePage {
     this.clickedOutsideService.itsClickedOnSub.subscribe({
       next: (clickedOn) => {
         if (clickedOn === 'content') {
-          this.showSearchbar = false;
-          this.showPopover = false;
+          this.navigationService.showSearchbar = false;
+          this.navigationService.showPopover = false;
         }
         if (clickedOn === 'middleHeader') {
-          this.showPopover = false;
+          this.navigationService.showPopover = false;
         }
-
       }
     }
     )
+
+    this.navigationService.resetSearchValueSub.subscribe(() => {
+      this.resetSearch();
+    }); 
+  }
+
+  resetSearch() {
+    this.searchValue = null;
+    this.articles = this.backupArticles.filter(article => article.title.toLowerCase().includes(''));
   }
 
   ngAfterViewInit() {
@@ -85,24 +93,26 @@ export class HomePage {
   }
 
   openArticle(url) {
-    if (!this.showPopover) {
+    if (!this.navigationService.showPopover) {
       const browser = this.iab.create(url);
     } else {
-      this.showPopover = false;
+      this.navigationService.showPopover = false;
     }
   }
 
   showSearch() {
-    this.showSearchbar = !this.showSearchbar;
-    if (this.showSearchbar) {
+    this.navigationService.showSearchbar = !this.navigationService.showSearchbar;
+    if (this.navigationService.showSearchbar) {
       this.searchbar.setFocus();
       this.backupArticles = this.articles
+    } else {
+      this.searchValue = null;
     }
-    this.showPopover = false;
+    this.navigationService.showPopover = false;
   }
 
   showPopoverMenu() {
-    this.showPopover = !this.showPopover
+    this.navigationService.showPopover = !this.navigationService.showPopover
   }
 
   onScroll(event) {
@@ -110,9 +120,8 @@ export class HomePage {
   }
 
   onSearchValueChange(event) {
-    let searchValue = event.detail.value;
-    this.articles = this.backupArticles.filter(article => article.title.toLowerCase().includes(searchValue.toLowerCase()));
-    console.log(this.articles)
+    this.searchValue = event.detail.value;
+    this.articles = this.backupArticles.filter(article => article.title.toLowerCase().includes(this.searchValue.toLowerCase()));
   }
 
 }

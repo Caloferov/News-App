@@ -1,18 +1,22 @@
 <ion-header #header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="showSearch()">
+      <ion-button *ngIf="navigationService.showContent == 'content'" (click)="showSearch()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
+      <ion-button *ngIf="navigationService.showContent == 'about'" (click)="navigationService.goHome()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <div class="middleHeader" [ngClass]="{'showSearchbar': showSearchbar}"
+    <div class="middleHeader" [ngClass]="{'showSearchbar': navigationService.showSearchbar}"
       (click)="clickedOutsideService.itClickedOn('middleHeader')">
       <div class="appTitleWrapper centerFlex w100 h100 trans03">
         <h1 class="appTitle absolute">novo</h1>
       </div>
       <div class="searchbarWrapper centerFlex w100 h100 trans03">
-        <ion-searchbar (ionChange)="onSearchValueChange($event)" class="searchbar absolute" #searchbar animated
-          searchIcon="none" placeholder="Търси новини" debounce="500">
+        <ion-searchbar (ionChange)="onSearchValueChange($event)" class="searchbar absolute"
+        [ngClass]="{'disableSearch': !navigationService.showSearchbar}" #searchbar animated
+          searchIcon="none" placeholder="Търси новини" debounce="500" value="{{searchValue}}">
         </ion-searchbar>
       </div>
     </div>
@@ -23,26 +27,27 @@
     </ion-buttons>
   </ion-toolbar>
 
-  <app-popover-menu #popover *ngIf="showPopover"></app-popover-menu>
+  <app-popover-menu #popover *ngIf="navigationService.showPopover"></app-popover-menu>
 </ion-header>
 
-<ion-content [fullscreen]="true" (scroll)="onScroll($event)" (click)="clickedOutsideService.itClickedOn('content')">
-  <ion-list>
+<ion-content class="content" [fullscreen]="true"
+  (scroll)="onScroll($event)" (click)="clickedOutsideService.itClickedOn('content')">
+  <ion-list *ngIf="navigationService.showContent == 'content'">
     <app-skeleton *ngIf="!articles;"></app-skeleton>
-      <div *ngIf="articles;" class="listWrapper">
-        <div *ngFor="let article of articles" class="regularArticle">
-          <div class="textPart" (click)="openArticle(article.link)">
-            <h5>{{article.title}}</h5>
-            <p>{{article.pubDate | date:'short'}}</p>
-          </div>
-          <img [src]="article.imageURL" (click)="openArticle(article.link)" />
+    <div *ngIf="articles;" class="listWrapper">
+      <div *ngFor="let article of articles" class="regularArticle">
+        <div class="textPart" (click)="openArticle(article.link)">
+          <h5>{{article.title}}</h5>
+          <p>{{article.pubDate | date:'short'}}</p>
         </div>
+        <img [src]="article.imageURL" (click)="openArticle(article.link)" />
       </div>
+    </div>
   </ion-list>
-
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="infiniteLoadData($event)">
+  <ion-infinite-scroll *ngIf="navigationService.showContent == 'content'" threshold="100px" (ionInfinite)="infiniteLoadData($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 
+  <app-about class="about" *ngIf="navigationService.showContent == 'about'"></app-about>
 </ion-content>

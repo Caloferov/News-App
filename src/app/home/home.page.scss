@@ -98,6 +98,10 @@
   --background: var(--searchbar-background);
   --border-radius: 25px;
   --color: var(--ion-text-color);
+
+  &.disableSearch {
+    pointer-events: none;
+  }
 }
 
 

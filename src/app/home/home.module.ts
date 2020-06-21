@@ -6,18 +6,17 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { PopoverMenuComponent } from '../popover-menu/popover-menu.component';
-import { SharedModule } from '../shared/shared.module';
 import { SkeletonComponent } from '../skeleton/skeleton.component';
+import { AboutComponent } from '../about/about.component';
 
 
 @NgModule({
   imports: [
-    SharedModule,
     CommonModule,
     FormsModule,
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, PopoverMenuComponent, SkeletonComponent]
+  declarations: [HomePage, PopoverMenuComponent, SkeletonComponent, AboutComponent]
 })
 export class HomePageModule {}
