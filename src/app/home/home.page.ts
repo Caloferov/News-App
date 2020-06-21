@@ -15,9 +15,16 @@ export class HomePage {
   @ViewChild(IonInfiniteScroll, { read: true, static: true }) infiniteScroll: IonInfiniteScroll;
   @ViewChild('searchbar', { static: false }) searchbar: IonSearchbar;
 
-  articles;
+  headerMarginTop = 0;
   backupArticles = [];
   searchValue;
+  lastYScrollValue: any;
+  animateMargin: boolean = true;
+  currScrollTop: any;
+  scrollWasDown: boolean;
+  scrollDirection: string;
+  scrollHasEnded: boolean;
+  absMargin: number;
 
   constructor(
     private navigationService: NavigationService,
@@ -43,18 +50,13 @@ export class HomePage {
 
     this.navigationService.resetSearchValueSub.subscribe(() => {
       this.resetSearch();
-    }); 
-  }
-
-  resetSearch() {
-    this.searchValue = null;
-    this.articles = this.backupArticles.filter(article => article.title.toLowerCase().includes(''));
+    });
   }
 
   ngAfterViewInit() {
     this.fetchRSSNewsService.fetchRSS(this.fetchRSSNewsService.dirRssUrl).subscribe(resp => {
-      this.articles = [];
-      this.extractDirRSS(resp);
+      this.fetchRSSNewsService.articles = [];
+      this.fetchRSSNewsService.extractDirRSS(resp);
     }
     )
   }
@@ -67,30 +69,11 @@ export class HomePage {
 
     // App logic to determine if all data is loaded
     // and disable the infinite scroll
-    if (this.articles.length == 1000) {
+    if (this.fetchRSSNewsService.articles.length == 1000) {
       event.target.disabled = true;
     }
   }
 
-  extractDirRSS(RSSResponse) {
-    let nodeList = new DOMParser().parseFromString(RSSResponse, "text/xml").querySelectorAll('item');
-
-    for (var i = 0, ref = nodeList.length; i < ref; i++) {
-      let title = nodeList[i].querySelector('title').innerHTML;
-      let link = nodeList[i].querySelector('link').innerHTML;
-      let pubDate = nodeList[i].querySelector('pubDate').innerHTML;
-      let imageURL = nodeList[i].querySelector('enclosure').attributes[0].nodeValue;
-
-      let article = {
-        title: title,
-        link: link,
-        pubDate: pubDate,
-        imageURL: imageURL
-      }
-
-      this.articles.push(article);
-    }
-  }
 
   openArticle(url) {
     if (!this.navigationService.showPopover) {
@@ -104,11 +87,16 @@ export class HomePage {
     this.navigationService.showSearchbar = !this.navigationService.showSearchbar;
     if (this.navigationService.showSearchbar) {
       this.searchbar.setFocus();
-      this.backupArticles = this.articles
+      this.backupArticles = this.fetchRSSNewsService.articles
     } else {
       this.searchValue = null;
     }
     this.navigationService.showPopover = false;
+  }
+
+  resetSearch() {
+    this.searchValue = null;
+    this.fetchRSSNewsService.articles = this.backupArticles.filter(article => article.title.toLowerCase().includes(''));
   }
 
   showPopoverMenu() {
@@ -116,12 +104,56 @@ export class HomePage {
   }
 
   onScroll(event) {
-    console.log(event)
+    this.currScrollTop = event.detail.scrollTop;
+    this.animateMargin = false;
+    if (this.currScrollTop > this.lastYScrollValue) {
+      // Scrolling down
+      if (this.headerMarginTop > -56) {
+        let step = this.currScrollTop - this.lastYScrollValue;
+        let bufferMargin = this.headerMarginTop - step;
+        if (bufferMargin < -56) {
+          this.headerMarginTop = -56;
+        } else {
+          this.headerMarginTop = bufferMargin;
+        }
+        this.scrollDirection = "down";
+      }
+    } else {
+      // Scrolling up
+      this.scrollDirection = "up";
+      if (this.headerMarginTop < 0) {
+        let step = this.lastYScrollValue - this.currScrollTop;
+        let bufferMargin = this.headerMarginTop + step;
+        if (bufferMargin > 0) {
+          this.headerMarginTop = 0
+        } else {
+          this.headerMarginTop = bufferMargin;
+        }
+      }
+    }
+    this.absMargin = Math.abs(this.headerMarginTop);
+    this.lastYScrollValue = this.currScrollTop;
+    console.log(this.absMargin)
+  }
+
+  onScrollEnd() {
+    // this.scrollHasEnded = true;
+  }
+
+  onTouchEnd() {
+    // this.animateMargin = true;
+  
+    //   if (this.scrollDirection === 'down') {
+    //     this.headerMarginTop = -56;
+    //   } else {
+    //     this.headerMarginTop = 0;
+    //   }
   }
 
   onSearchValueChange(event) {
     this.searchValue = event.detail.value;
-    this.articles = this.backupArticles.filter(article => article.title.toLowerCase().includes(this.searchValue.toLowerCase()));
+    this.fetchRSSNewsService.articles = this.backupArticles.filter(
+      article => article.title.toLowerCase().includes(this.searchValue.toLowerCase()));
   }
 
 }

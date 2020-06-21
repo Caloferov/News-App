@@ -7,7 +7,8 @@ export class FetchRSSNewsService {
   // corsProxyUrl = 'https://cors-proxy.htmldriven.com/?url=';
   corsProxyUrl = 'https://cors-anywhere.herokuapp.com/'
   dirRssUrl = 'https://dir.bg/feeds/rss';
-  
+
+  articles;
 
   // Hard to read Image sources for those RSS feeds:
   // faktiRssUrl = this.corsProxyUrl + 'https://fakti.bg/feed';
@@ -26,6 +27,28 @@ export class FetchRSSNewsService {
 
   fetchRSS(url) {
     return this.http.get(url, { responseType: 'text' })
+  }
+
+  extractDirRSS(RSSResponse) {
+    let source = new DOMParser().parseFromString(RSSResponse, "text/xml").querySelector("channel > title").innerHTML;
+    let nodeList = new DOMParser().parseFromString(RSSResponse, "text/xml").querySelectorAll('item');
+
+    for (var i = 0, ref = nodeList.length; i < ref; i++) {
+      let title = nodeList[i].querySelector('title').innerHTML;
+      let link = nodeList[i].querySelector('link').innerHTML;
+      let pubDate = nodeList[i].querySelector('pubDate').innerHTML;
+      let imageURL = nodeList[i].querySelector('enclosure').attributes[0].nodeValue;
+
+      let article = {
+        source,
+        title,
+        link,
+        pubDate,
+        imageURL
+      }
+
+      this.articles.push(article);
+    }
   }
 
 }

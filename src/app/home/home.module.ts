@@ -8,6 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { PopoverMenuComponent } from '../popover-menu/popover-menu.component';
 import { SkeletonComponent } from '../skeleton/skeleton.component';
 import { AboutComponent } from '../about/about.component';
+import { HideHeaderDirective } from '../directives/hide-header.directive';
 
 
 @NgModule({
@@ -17,6 +18,6 @@ import { AboutComponent } from '../about/about.component';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, PopoverMenuComponent, SkeletonComponent, AboutComponent]
+  declarations: [HomePage, PopoverMenuComponent, SkeletonComponent, AboutComponent, HideHeaderDirective]
 })
 export class HomePageModule {}

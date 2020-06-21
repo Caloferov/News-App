@@ -5,7 +5,6 @@ import { DomController } from '@ionic/angular';
     selector: '[appHideHeader]'
 })
 export class HideHeaderDirective implements OnInit {
-
     @Input('header') header: any;
 
     private lastY = 0;
