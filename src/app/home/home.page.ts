@@ -15,7 +15,7 @@ export class HomePage {
 
   @ViewChild('searchbar', { static: false }) searchbar: IonSearchbar;
 
-  articles = [];
+  articles;
   backupArticles = [];
   showPopover: boolean = false;
   showSearchbar: boolean = false;
@@ -28,11 +28,6 @@ export class HomePage {
   ) { }
 
   ngOnInit() {
-    this.fetchRSSNewsService.fetchRSS(this.fetchRSSNewsService.dirRssUrl).subscribe(resp => {
-      this.extractDirRSS(resp);
-    }
-    )
-
     this.clickedOutsideService.itsClickedOnSub.subscribe({
       next: (clickedOn) => {
         if (clickedOn === 'content') {
@@ -44,6 +39,14 @@ export class HomePage {
         }
 
       }
+    }
+    )
+  }
+
+  ngAfterViewInit() {
+    this.fetchRSSNewsService.fetchRSS(this.fetchRSSNewsService.dirRssUrl).subscribe(resp => {
+      this.articles = [];
+      this.extractDirRSS(resp);
     }
     )
   }

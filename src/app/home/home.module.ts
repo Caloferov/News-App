@@ -7,6 +7,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { PopoverMenuComponent } from '../popover-menu/popover-menu.component';
 import { SharedModule } from '../shared/shared.module';
+import { SkeletonComponent } from '../skeleton/skeleton.component';
 
 
 @NgModule({
@@ -17,6 +18,6 @@ import { SharedModule } from '../shared/shared.module';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, PopoverMenuComponent]
+  declarations: [HomePage, PopoverMenuComponent, SkeletonComponent]
 })
 export class HomePageModule {}

@@ -28,15 +28,16 @@
 
 <ion-content [fullscreen]="true" (scroll)="onScroll($event)" (click)="clickedOutsideService.itClickedOn('content')">
   <ion-list>
-    <div class="listWrapper">
-      <div *ngFor="let article of articles" class="regularArticle">
-        <div class="textPart" (click)="openArticle(article.link)">
-          <h5>{{article.title}}</h5>
-          <p>{{article.pubDate}}</p>
+    <app-skeleton *ngIf="!articles;"></app-skeleton>
+      <div *ngIf="articles;" class="listWrapper">
+        <div *ngFor="let article of articles" class="regularArticle">
+          <div class="textPart" (click)="openArticle(article.link)">
+            <h5>{{article.title}}</h5>
+            <p>{{article.pubDate | date:'short'}}</p>
+          </div>
+          <img [src]="article.imageURL" (click)="openArticle(article.link)" />
         </div>
-        <img [src]="article.imageURL" (click)="openArticle(article.link)" />
       </div>
-    </div>
   </ion-list>
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="infiniteLoadData($event)">

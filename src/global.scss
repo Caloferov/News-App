@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -34,10 +34,12 @@ body {
 }
 
 .trans03 {
-transition: 0.3s;
+    transition: 0.3s;
 }
 
-h1, p, span {
+h1,
+p,
+span {
     margin: 0;
 }
 
@@ -61,4 +63,8 @@ h1, p, span {
 
 .h100 {
     height: 100%;
+}
+
+body.dark ion-header {
+    box-shadow: 0px 0px 3px 0px var(--boxShadow);
 }

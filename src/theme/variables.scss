@@ -8,6 +8,8 @@ body {
   /* Custom: */
   --searchbar-background: #eaeaea;
   --boxShadow: #969696;
+  --skeletonColor: #8080801f;
+  --skeletonGradient: #86868614;
 }
 
 /* Dark theme colors: */
@@ -36,5 +38,6 @@ body.dark {
   --ion-background-color: #000000;
   --ion-text-color: #ffffff;
   --searchbar-background: #21212194;
-  --boxShadow: #000000;
+  --boxShadow: #727272;
+  --skeletonGradient: #d0d0d014;
 }
