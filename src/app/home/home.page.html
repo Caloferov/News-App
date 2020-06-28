@@ -33,8 +33,8 @@
 <ion-content class="content fixed" [fullscreen]="true" scrollEvents="true" (ionScroll)="onScroll($event)"
   (ionScrollEnd)="onScrollEnd($event)" (touchend)="onTouchEnd()" (click)="clickedOutsideService.itClickedOn('content')">
   <ion-list *ngIf="navigationService.showContent == 'content'">
-    <app-skeleton *ngIf="!fetchRSSNewsService.articles;"></app-skeleton>
-    <div *ngIf="fetchRSSNewsService.articles;" class="listWrapper">
+    <app-skeleton *ngIf="fetchRSSNewsService.showSkeleton;"></app-skeleton>
+    <div *ngIf="!fetchRSSNewsService.showSkeleton;" class="listWrapper">
       <div class="w100 helpsSmoothlyHideHeader" [style.height.px]="56">
       </div>
       <div *ngFor=" let article of fetchRSSNewsService.articles" class="regularArticle">
@@ -46,9 +46,9 @@
       </div>
     </div>
   </ion-list>
-  <ion-infinite-scroll *ngIf="navigationService.showContent == 'content'" threshold="100px"
+  <ion-infinite-scroll *ngIf="navigationService.showContent == 'content' && !this.fetchRSSNewsService.allLoaded" threshold="100px"
     (ionInfinite)="infiniteLoadData($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Новините идват при теб...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

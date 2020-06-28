@@ -54,22 +54,31 @@ export class HomePage {
   }
 
   ngAfterViewInit() {
+    this.fetchRSSNewsService.articles = [];
     this.fetchRSSNewsService.fetchRSS(this.fetchRSSNewsService.dirRssUrl).subscribe(resp => {
-      this.fetchRSSNewsService.articles = [];
       this.fetchRSSNewsService.extractDirRSS(resp);
+
+      this.fetchRSSNewsService.fetchRSS(this.fetchRSSNewsService.faktiRssUrl).subscribe(resp => {
+        this.fetchRSSNewsService.extractFaktiRSS(resp);
+
+        this.fetchRSSNewsService.fetchRSS(this.fetchRSSNewsService.chasa24RssUrl).subscribe(resp => {
+          this.fetchRSSNewsService.extract24chasa(resp);
+        });
+      });
     }
-    )
+    );
   }
 
   infiniteLoadData(event) {
     // Load more data here 
 
     // Stops the loading animation when data is loaded
-    event.target.complete();
+    // event.target.complete();
+
 
     // App logic to determine if all data is loaded
     // and disable the infinite scroll
-    if (this.fetchRSSNewsService.articles.length == 1000) {
+    if (this.fetchRSSNewsService.allLoaded == true) {
       event.target.disabled = true;
     }
   }
@@ -133,7 +142,7 @@ export class HomePage {
     }
     this.absMargin = Math.abs(this.headerMarginTop);
     this.lastYScrollValue = this.currScrollTop;
-    console.log(this.absMargin)
+    this.navigationService.showPopover = false;
   }
 
   onScrollEnd() {
@@ -142,7 +151,7 @@ export class HomePage {
 
   onTouchEnd() {
     // this.animateMargin = true;
-  
+
     //   if (this.scrollDirection === 'down') {
     //     this.headerMarginTop = -56;
     //   } else {
