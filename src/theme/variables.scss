@@ -10,6 +10,7 @@ body {
   --boxShadow: #969696;
   --skeletonColor: #8080801f;
   --skeletonGradient: #86868614;
+  --noPic-article-background: #f3f3f3;
 }
 
 /* Dark theme colors: */
@@ -40,4 +41,5 @@ body.dark {
   --searchbar-background: #21212194;
   --boxShadow: #727272;
   --skeletonGradient: #d0d0d014;
+  --noPic-article-background: #212121;
 }

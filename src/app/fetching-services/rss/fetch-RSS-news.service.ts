@@ -98,13 +98,14 @@ export class FetchRSSNewsService {
         continue;
       }
     }
+    this.shuffleAndLoadTheRest();
   }
 
   extract24chasa(RSSResponse) {
     let source = '24 chasa';
     let nodeList = new DOMParser().parseFromString(RSSResponse, "text/xml").querySelectorAll('item');
-    let patt = /(["'])(?:\\.|[^\\])*?\1/;
-    let patternToExtractImgURL = new RegExp(patt);
+    // let patt = /(["'])(?:\\.|[^\\])*?\1/;
+    // let patternToExtractImgURL = new RegExp(patt);
 
     for (let i = 0, ref = nodeList.length; i < ref; i++) {
       let category = nodeList[i].querySelector('category').innerHTML;
@@ -113,13 +114,16 @@ export class FetchRSSNewsService {
         let link = nodeList[i].querySelector('link').innerHTML;
         let pubDate = nodeList[i].querySelector('pubDate').innerHTML;
         let description = nodeList[i].querySelector('description').innerHTML;
-        let imageURLexexArray = patternToExtractImgURL.exec(description)
-        let imageURL;
-        if (imageURLexexArray && imageURLexexArray.length) {
-          imageURL = imageURLexexArray[0].slice(1, -1);
-        } else {
-          imageURL = '';
-        }
+        // let imageURLexexArray = patternToExtractImgURL.exec(description)
+        let imageURL = '';
+        // if (imageURLexexArray && imageURLexexArray.length) {
+        //   imageURL = imageURLexexArray[0].slice(1, -1);
+        //   if (!imageURL.includes('http')) {
+        //     imageURL = '';
+        //   }
+        // } else {
+        //   imageURL = '';
+        // }
 
         let article = {
           source,
@@ -129,12 +133,15 @@ export class FetchRSSNewsService {
           imageURL
         }
 
-        this.bufferArcicles.push(article);
+        this.articles.push(article);
       } else {
         continue;
       }
     }
+    this.allLoaded = true;
+  }
 
+  shuffleAndLoadTheRest() {
     // Shuffle the array
     for (let i = this.bufferArcicles.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * i)
@@ -144,8 +151,9 @@ export class FetchRSSNewsService {
     }
 
     this.articles = [...this.articles, ...this.bufferArcicles]
-    this.allLoaded = true;
+    
   }
+
 
   getRandomInt(min, max) {
     min = Math.ceil(min);
