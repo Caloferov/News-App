@@ -11,7 +11,7 @@
     <div class="middleHeader" [ngClass]="{'showSearchbar': navigationService.showSearchbar}"
       (click)="clickedOutsideService.itClickedOn('middleHeader')">
       <div class="appTitleWrapper centerFlex w100 h100 trans03">
-        <h1 class="appTitle absolute">novo</h1>
+        <h1 class="appTitle absolute"><strong>novo</strong><span>news</span>.</h1>
       </div>
       <div class="searchbarWrapper centerFlex w100 h100 trans03">
         <ion-searchbar (ionChange)="onSearchValueChange($event)" class="searchbar absolute"
@@ -27,7 +27,7 @@
     </ion-buttons>
   </ion-toolbar>
 
-  <app-popover-menu #popover *ngIf="navigationService.showPopover"></app-popover-menu>
+  <app-popover-menu #popover [show]="navigationService.showPopover"></app-popover-menu>
 </ion-header>
 
 <ion-content class="content fixed" [fullscreen]="true" scrollEvents="true" (ionScroll)="onScroll($event)"
@@ -46,8 +46,8 @@
       </div>
     </div>
   </ion-list>
-  <ion-infinite-scroll *ngIf="navigationService.showContent == 'content' && !this.fetchRSSNewsService.allLoaded" threshold="100px"
-    (ionInfinite)="infiniteLoadData($event)">
+  <ion-infinite-scroll *ngIf="navigationService.showContent == 'content' && !this.fetchRSSNewsService.allLoaded"
+    threshold="100px" (ionInfinite)="infiniteLoadData($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Новините идват при теб...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>

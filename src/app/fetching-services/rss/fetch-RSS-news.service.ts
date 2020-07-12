@@ -36,26 +36,32 @@ export class FetchRSSNewsService {
     let nodeList = new DOMParser().parseFromString(RSSResponse, "text/xml").querySelectorAll('item');
 
     for (let i = 0, ref = nodeList.length; i < ref; i++) {
-      let title = nodeList[i].querySelector('title').innerHTML;
-      let link = nodeList[i].querySelector('link').innerHTML;
-      let pubDate = nodeList[i].querySelector('pubDate').innerHTML;
-      let imageURL = nodeList[i].querySelector('enclosure').attributes[0].nodeValue;
+      let category = nodeList[i].querySelector('category').innerHTML;
+      if (category !== "Футбол" && category !== 'Тенис') {
+        let title = nodeList[i].querySelector('title').innerHTML;
+        let link = nodeList[i].querySelector('link').innerHTML;
+        let pubDate = nodeList[i].querySelector('pubDate').innerHTML;
+        let imageURL = nodeList[i].querySelector('enclosure').attributes[0].nodeValue;
 
-      let article = {
-        source,
-        title,
-        link,
-        pubDate,
-        imageURL
-      }
+        let article = {
+          source,
+          title,
+          link,
+          pubDate,
+          imageURL
+        }
 
-      if (i < 6) {
-        this.articles.push(article)
+        if (i < 5) {
+          this.articles.push(article)
+        } else {
+          this.bufferArcicles.push(article);
+        }
+
+        this.showSkeleton = false;
       } else {
-        this.bufferArcicles.push(article);
+        continue;
       }
 
-      this.showSkeleton = false;
     }
 
   }
@@ -67,24 +73,29 @@ export class FetchRSSNewsService {
     let patternToExtractImgURL = new RegExp(patt);
 
     for (let i = 0, ref = nodeList.length; i < ref; i++) {
-      let title = nodeList[i].querySelector('title').innerHTML;
-      let link = nodeList[i].querySelector('link').innerHTML;
-      let pubDate = nodeList[i].querySelector('pubDate').innerHTML;
-      let description = nodeList[i].querySelector('description').innerHTML;
-      let imageURL = patternToExtractImgURL.exec(description)[0].slice(1, -1);
+      let category = nodeList[i].querySelector('category').innerHTML;
+      if (category !== "Спорт") {
+        let title = nodeList[i].querySelector('title').innerHTML;
+        let link = nodeList[i].querySelector('link').innerHTML;
+        let pubDate = nodeList[i].querySelector('pubDate').innerHTML;
+        let description = nodeList[i].querySelector('description').innerHTML;
+        let imageURL = patternToExtractImgURL.exec(description)[0].slice(1, -1);
 
-      let article = {
-        source,
-        title,
-        link,
-        pubDate,
-        imageURL
-      }
+        let article = {
+          source,
+          title,
+          link,
+          pubDate,
+          imageURL
+        }
 
-      if (i < 6 ) {
-        this.articles.push(article)
+        if (i < 5) {
+          this.articles.push(article)
+        } else {
+          this.bufferArcicles.push(article)
+        }
       } else {
-        this.bufferArcicles.push(article)
+        continue;
       }
     }
   }
@@ -96,27 +107,32 @@ export class FetchRSSNewsService {
     let patternToExtractImgURL = new RegExp(patt);
 
     for (let i = 0, ref = nodeList.length; i < ref; i++) {
-      let title = nodeList[i].querySelector('title').innerHTML;
-      let link = nodeList[i].querySelector('link').innerHTML;
-      let pubDate = nodeList[i].querySelector('pubDate').innerHTML;
-      let description = nodeList[i].querySelector('description').innerHTML;
-      let imageURLexexArray = patternToExtractImgURL.exec(description)
-      let imageURL;
-      if (imageURLexexArray && imageURLexexArray.length) {
-        imageURL = imageURLexexArray[0].slice(1, -1);
+      let category = nodeList[i].querySelector('category').innerHTML;
+      if (category !== "Спорт") {
+        let title = nodeList[i].querySelector('title').innerHTML;
+        let link = nodeList[i].querySelector('link').innerHTML;
+        let pubDate = nodeList[i].querySelector('pubDate').innerHTML;
+        let description = nodeList[i].querySelector('description').innerHTML;
+        let imageURLexexArray = patternToExtractImgURL.exec(description)
+        let imageURL;
+        if (imageURLexexArray && imageURLexexArray.length) {
+          imageURL = imageURLexexArray[0].slice(1, -1);
+        } else {
+          imageURL = '';
+        }
+
+        let article = {
+          source,
+          title,
+          link,
+          pubDate,
+          imageURL
+        }
+
+        this.bufferArcicles.push(article);
       } else {
-        imageURL = '';
+        continue;
       }
-
-      let article = {
-        source,
-        title,
-        link,
-        pubDate,
-        imageURL
-      }
-
-      this.bufferArcicles.push(article);
     }
 
     // Shuffle the array

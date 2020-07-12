@@ -1,8 +1,25 @@
 :host {
     width: 250px;
-    position: absolute;
+    // position: absolute;
     right: 10px;
     top: 10px;
     z-index: 10;
-    box-shadow: 0px 0px 3px 0px var(--boxShadow);
+}
+
+.popover {
+    transition: 0.3s;
+    padding: 0;
+    height: 0px;
+    opacity: 0;
+
+    &.show {
+        height: auto;
+        opacity: 1;
+        // -webkit-border-radius: 20px;
+        // -moz-border-radius: 20px;
+        // border-radius: 20px;
+        // box-shadow: 0px 0px 3px 0px var(--boxShadow);
+        // -webkit-box-shadow: 0px 0px 3px 0px var(--boxShadow);
+        // -moz-box-shadow: 0px 0px 3px 0px var(--boxShadow);
+    }
 }
