@@ -31,7 +31,7 @@ export class HomePage {
     private fetchRSSNewsService: FetchRSSNewsService,
     private iab: InAppBrowser,
     public clickedOutsideService: ClickedOutsideService,
-    public themeService: ThemeService
+    public themeService: ThemeService,
   ) { }
 
   ngOnInit() {
