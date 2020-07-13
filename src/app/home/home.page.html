@@ -1,4 +1,4 @@
-<ion-header #header [translucent]="true" [style.marginTop.px]="headerMarginTop">
+<ion-header #header class="ion-no-border" [translucent]="true" [style.marginTop.px]="headerMarginTop">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button *ngIf="navigationService.showContent == 'content'" (click)="showSearch()">
@@ -37,7 +37,7 @@
     <div *ngIf="!fetchRSSNewsService.showSkeleton;" class="listWrapper">
       <div class="w100 helpsSmoothlyHideHeader" [style.height.px]="56">
       </div>
-      <div *ngFor=" let article of fetchRSSNewsService.articles" class="regularArticle" [ngClass]="{'noPic': !article.imageURL}">
+      <div *ngFor=" let article of fetchRSSNewsService.articles" class="regularArticle">
         <div class="textPart" [ngClass]="{'w100': !article.imageURL}" (click)="openArticle(article.link)">
           <h5>{{article.title}}</h5>
           <p><strong><span>{{article.source}} · </span></strong>{{article.pubDate | date:'M/d/yy - H:mm'}}</p>

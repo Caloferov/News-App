@@ -151,9 +151,8 @@ export class FetchRSSNewsService {
     }
 
     this.articles = [...this.articles, ...this.bufferArcicles]
-    
-  }
 
+  }
 
   getRandomInt(min, max) {
     min = Math.ceil(min);

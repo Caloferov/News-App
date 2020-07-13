@@ -7,7 +7,12 @@
   "cordova": {},
   "plugins": {
     "SplashScreen": {
+      "spinnerColor": "#009595",
       "showSpinner": true
     }
+  },
+  "server": {
+    "url": "http://192.168.0.102:8100",
+    "cleartext": true
   }
 }
