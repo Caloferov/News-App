@@ -7,6 +7,7 @@
   "cordova": {},
   "plugins": {
     "SplashScreen": {
+      "spinnerColor": "#009595",
       "showSpinner": true
     }
   }
