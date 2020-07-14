@@ -24,3 +24,10 @@
         // -moz-box-shadow: 0px 0px 3px 0px var(--boxShadow);
     }
 }
+
+ion-toggle {
+    // --background: white;
+    --background-checked: #009595ff;  
+    --handle-background: white;
+    --handle-background-checked: white;
+  }

@@ -25,6 +25,15 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@font-face {
+    font-family: Roboto;
+    src: url(assets/fonts/Roboto-Regular.ttf) format("opentype");
+}
+
+.content {
+    font-family: "Roboto", sans-serif;
+}
+
 body {
     transition: 0.3s;
 }
