@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Subject } from 'rxjs';
-import { AppRate } from '@ionic-native/app-rate/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class NavigationService {
   resetSearchValueSub = new Subject<any>();
 
   constructor(private platform: Platform,
-    private appRate: AppRate
+    private iab: InAppBrowser,
   ) {
     //Processing back button/gesture in order:
     this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
@@ -52,16 +52,10 @@ export class NavigationService {
     this.showSearchbar = false;
   }
 
-  // navigateToRatePlayStore() {
-  //   // set certain preferences
-  //   this.appRate.preferences.storeAppURL = {
-  //     ios: 'novonews',
-  //     android: 'market://details?id=com.instagram.android',
-  //   }
-
-  //   this.appRate.promptForRating(true);
-
-  // }
+  navigateToRatePlayStore() {
+    let playStoreUrl = "https://play.google.com/store/apps/details?id=com.novonews.android"
+    const browser = this.iab.create(playStoreUrl);
+  }
 
   goHome() {
     this.showContent = 'content';

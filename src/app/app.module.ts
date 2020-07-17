@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { HomePageModule } from './home/home.module';
-import { AppRate } from '@ionic-native/app-rate/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +19,6 @@ import { AppRate } from '@ionic-native/app-rate/ngx';
     InAppBrowser,
     StatusBar,
     SplashScreen,
-    AppRate,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
