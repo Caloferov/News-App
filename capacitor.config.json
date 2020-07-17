@@ -10,9 +10,5 @@
       "spinnerColor": "#009595",
       "showSpinner": true
     }
-  },
-  "server": {
-    "url": "http://192.168.0.104:8100",
-    "cleartext": true
   }
 }

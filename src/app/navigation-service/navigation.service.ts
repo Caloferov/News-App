@@ -56,7 +56,7 @@ export class NavigationService {
     // set certain preferences
     this.appRate.preferences.storeAppURL = {
       ios: 'novonews',
-      android: 'market://details?id=novonews',
+      android: 'market://details?id=com.novonews',
     }
 
     this.appRate.promptForRating(true);
