@@ -52,16 +52,16 @@ export class NavigationService {
     this.showSearchbar = false;
   }
 
-  navigateToRatePlayStore() {
-    // set certain preferences
-    this.appRate.preferences.storeAppURL = {
-      ios: 'novonews',
-      android: 'market://details?id=com.novonews',
-    }
+  // navigateToRatePlayStore() {
+  //   // set certain preferences
+  //   this.appRate.preferences.storeAppURL = {
+  //     ios: 'novonews',
+  //     android: 'market://details?id=com.instagram.android',
+  //   }
 
-    this.appRate.promptForRating(true);
+  //   this.appRate.promptForRating(true);
 
-  }
+  // }
 
   goHome() {
     this.showContent = 'content';
