@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Subject } from 'rxjs';
+import { AppRate } from '@ionic-native/app-rate/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class NavigationService {
   resetSearchValueSub = new Subject<any>();
 
   constructor(private platform: Platform,
+    private appRate: AppRate
   ) {
     //Processing back button/gesture in order:
     this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
@@ -48,6 +50,17 @@ export class NavigationService {
     this.showContent = 'about';
     this.showPopover = false;
     this.showSearchbar = false;
+  }
+
+  navigateToRatePlayStore() {
+    // set certain preferences
+    this.appRate.preferences.storeAppURL = {
+      ios: '<app_id>',
+      android: 'market://details?id=<package_name>',
+    }
+
+    this.appRate.promptForRating(true);
+
   }
 
   goHome() {
