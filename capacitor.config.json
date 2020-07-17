@@ -1,5 +1,5 @@
 {
-  "appId": "novonews",
+  "appId": "novonews.android",
   "appName": "novonews",
   "bundledWebRuntime": false,
   "npmClient": "npm",

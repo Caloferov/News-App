@@ -53,7 +53,7 @@ export class NavigationService {
   }
 
   navigateToRatePlayStore() {
-    let playStoreUrl = "https://play.google.com/store/apps/details?id=novonews"
+    let playStoreUrl = "https://play.google.com/store/apps/details?id=com.novonews.android"
     const browser = this.iab.create(playStoreUrl);
   }
 
