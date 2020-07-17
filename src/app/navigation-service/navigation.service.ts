@@ -55,8 +55,8 @@ export class NavigationService {
   navigateToRatePlayStore() {
     // set certain preferences
     this.appRate.preferences.storeAppURL = {
-      ios: '<app_id>',
-      android: 'market://details?id=<package_name>',
+      ios: 'novonews',
+      android: 'market://details?id=novonews',
     }
 
     this.appRate.promptForRating(true);
