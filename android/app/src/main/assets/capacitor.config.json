@@ -1,0 +1,14 @@
+{
+  "appId": "com.novonews.android",
+  "appName": "novonews",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {},
+  "plugins": {
+    "SplashScreen": {
+      "spinnerColor": "#009595",
+      "showSpinner": true
+    }
+  }
+}
