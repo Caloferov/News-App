@@ -4,8 +4,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FetchRSSNewsService {
-  // corsProxyUrl = 'https://cors-proxy.htmldriven.com/?url=';
-  corsProxyUrl = 'https://cors-anywhere.herokuapp.com/'
+  corsProxyUrl = 'https://thingproxy.freeboard.io/fetch/';
+  // Old Proxy - now working any more.
+  // corsProxyUrl = 'https://cors-anywhere.herokuapp.com/'
   dirRssUrl = 'https://dir.bg/feeds/rss';
   bufferArcicles = [];
   articles;
