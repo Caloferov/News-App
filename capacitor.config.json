@@ -10,5 +10,6 @@
       "spinnerColor": "#009595",
       "showSpinner": true
     }
-  }
+  },
+  "linuxAndroidStudioPath": "/var/lib/snapd/snap/android-studio/115/android-studio/bin/studio.sh"
 }
